@@ -12,8 +12,8 @@
 > To learn more about this project business usecase please click on [fills.ai](https://fills.ai/)
 
 
-# Table of Contents
-- [Table of Contents](#table-of-contents)
+# Table of Contents:
+- [Table of Contents:](#table-of-contents)
   - [✨ Features](#-features)
   - [🚀 Tech Stack](#-tech-stack)
 - [V 1.0.0 :](#v-100-)
@@ -84,6 +84,83 @@
 </div>
 
 # V 1.0.0 : 
+
+```mermaid
+graph TB
+    User((User))
+
+    subgraph "Frontend Application"
+        MobileApp["Mobile App<br>React Native/Expo"]
+        
+        subgraph "Frontend Components"
+            AuthScreens["Auth Screens<br>React Native"]
+            FormComponents["Form Components<br>React Native"]
+            AppLoading["App Loading<br>React Native"]
+            TemplateComponents["Template Components<br>React Native"]
+            PDFGenerator["PDF Generator<br>JavaScript"]
+            SpeechToText["Speech to Text<br>JavaScript"]
+        end
+
+        subgraph "State Management"
+            FormDataContext["Form Data Context<br>React Context"]
+            EventEmitter["Custom Event Emitter<br>TypeScript"]
+        end
+    end
+
+    subgraph "Backend Services"
+        APIGateway["API Gateway<br>AWS API Gateway"]
+        
+        subgraph "Lambda Function"
+            FormHandler["Form Handler<br>Python"]
+            TemplateHandler["Template Handler<br>Python"]
+            AuthHandler["Auth Handler<br>Python"]
+            DataProcessor["Data Processor<br>Python"]
+        end
+
+        subgraph "Data Storage"
+            DynamoDB1["Form Templates DB<br>DynamoDB"]
+            DynamoDB2["Filled Forms DB<br>DynamoDB"]
+        end
+    end
+
+    subgraph "External Services"
+        Firebase["Firebase Auth<br>Firebase"]
+        OpenAI["OpenAI Service<br>GPT API"]
+    end
+
+    %% Frontend Relationships
+    User -->|"Interacts with"| MobileApp
+    MobileApp -->|"Uses"| AuthScreens
+    MobileApp -->|"Uses"| FormComponents
+    MobileApp -->|"Uses"| AppLoading
+    MobileApp -->|"Uses"| TemplateComponents
+    FormComponents -->|"Uses"| PDFGenerator
+    FormComponents -->|"Uses"| SpeechToText
+    MobileApp -->|"Uses"| FormDataContext
+    FormDataContext -->|"Uses"| EventEmitter
+
+    %% Backend Relationships
+    MobileApp -->|"Authenticates"| Firebase
+    MobileApp -->|"API Requests"| APIGateway
+    APIGateway -->|"Routes"| FormHandler
+    APIGateway -->|"Routes"| TemplateHandler
+    APIGateway -->|"Routes"| AuthHandler
+    
+    %% Data Storage Relationships
+    FormHandler -->|"CRUD Operations"| DynamoDB1
+    FormHandler -->|"CRUD Operations"| DynamoDB2
+    TemplateHandler -->|"CRUD Operations"| DynamoDB1
+    
+    %% External Service Integration
+    FormHandler -->|"Text Processing"| OpenAI
+    AuthHandler -->|"Verify Token"| Firebase
+
+    %% Data Processing Flow
+    FormComponents -->|"Submit Form"| FormHandler
+    DataProcessor -->|"Process Form Data"| DynamoDB2
+```
+
+
 > This app is built with React Native, AWS Bedrock, Lambda, Dynaomodb and various other cutting edge technologies. 
 
 > This application is therefore availabe on web, andrioid , IOS platfroms. Thanks to ReactNative, AWS, GCP.
